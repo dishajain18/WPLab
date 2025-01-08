@@ -3,61 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Country Population Table</title>
+    <title>Population Table</title>
     <style>
-        .head {
+        table {
+            margin: 50px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 2px 2px;
+            border: 1px solid #ddd;
+            text-align: center;
+        } 
+        th {
             background-color: rgb(162, 55, 233);
+            color: white;
+            width:30%;
+
         }
         .country {
             background-color: rgb(187, 129, 204);
         }
         .year {
             background-color: rgb(226, 170, 223);
+            text-align: right;
+            width:45%;
         }
         .population {
             background-color: rgb(235, 186, 216);
-        }
-        table {
-            width: 60%;
-            margin: 50px auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        /* Column Headings Background Color */
-        th {
-            background-color: rgb(162, 55, 233);
-            color: white;
-        }
-        /* Country Column Background Color */
-        td:first-child {
-            background-color: rgb(187, 129, 204);
-        }
-        /* Year Column Background Color */
-        td:nth-child(2) {
-            background-color: rgb(226, 170, 223);
-        }
-        /* Population Column Background Color */
-        td:last-child {
-            background-color: rgb(235, 186, 216);
-        }
-        caption {
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            text-align: right;
+            width:45%;
         }
     </style>
 </head>
 <body>
 
     <table id="population-table">
-        <caption>Population Change 1998-2000</caption>
+        <caption style="padding: 3px; font-size: 20px;">Population Change 1998-2000</caption>
         <thead>
             <tr>
-                <th class="head">Country</th>
-                <th class="head" colspan="2">Population (in Crores)</th>
+                <th>Country</th>
+                <th colspan="2">Population (In Crores)</th>
             </tr>
         </thead>
         <tbody>
@@ -66,11 +51,11 @@
     </table>
 
     <script>
-        // Array of objects containing the population data for each country and year
+        // Data array containing population information
         const populationData = [
-            { country: 'India', year: 1998, population: 85 },
-            { country: 'India', year: 1999, population: 90 },
-            { country: 'India', year: 2000, population: 100 },
+            { country: 'INDIA', year: 1998, population: 85 },
+            { country: 'INDIA', year: 1999, population: 90 },
+            { country: 'INDIA', year: 2000, population: 100 },
             { country: 'USA', year: 1998, population: 30 },
             { country: 'USA', year: 1999, population: 35 },
             { country: 'USA', year: 2000, population: 40 },
@@ -79,49 +64,57 @@
             { country: 'UK', year: 2000, population: 35 }
         ];
 
-        // Function to populate the table with the data
+        // Populate the table dynamically
         function populateTable() {
             const tableBody = document.querySelector('#population-table tbody');
-
             let currentCountry = '';
+            let countryRowSpanStartIndex = -1;
+            let rowCount = 0;
 
-            // Loop through the data and create rows
             populationData.forEach((data, index) => {
+                // Create a new row
                 const row = document.createElement('tr');
 
-                // Add the 'country' cell only for the first row of each country
+                // Add Country cell only when the country changes
                 if (data.country !== currentCountry) {
-                    currentCountry = data.country;  // Update the country tracker
+                    currentCountry = data.country;
+                    if (countryRowSpanStartIndex >= 0) {
+                        tableBody.rows[countryRowSpanStartIndex].cells[0].rowSpan = rowCount;
+                    }
+                    countryRowSpanStartIndex = tableBody.rows.length;
+                    rowCount = 1;
 
-                    // Create country cell with rowspan="3" for the first row of each country
                     const countryCell = document.createElement('td');
-                    countryCell.rowSpan = 3;  // Spans three rows for each country
-                    countryCell.className = "country";
                     countryCell.textContent = data.country;
-                    row.appendChild(countryCell);  // Add the country cell to the row
+                    countryCell.className = 'country';
+                    row.appendChild(countryCell);
                 } else {
-                    // For subsequent rows, just add an empty cell in the country column
-                    const emptyCountryCell = document.createElement('td');
-                    row.appendChild(emptyCountryCell);  // Empty cell for country
+                    rowCount++;
                 }
 
-                // Create and append the year and population cells
+                // Add Year cell
                 const yearCell = document.createElement('td');
-                yearCell.className = "year";
                 yearCell.textContent = data.year;
+                yearCell.className = 'year';
                 row.appendChild(yearCell);
 
+                // Add Population cell
                 const populationCell = document.createElement('td');
-                populationCell.className = "population";
                 populationCell.textContent = data.population;
+                populationCell.className = 'population';
                 row.appendChild(populationCell);
 
                 // Append the row to the table body
                 tableBody.appendChild(row);
+
+                // Apply rowspan to the last country after the loop ends
+                if (index === populationData.length - 1) {
+                    tableBody.rows[countryRowSpanStartIndex].cells[0].rowSpan = rowCount;
+                }
             });
         }
 
-        // Call the function to populate the table when the page loads
+        // Populate the table when the page loads
         populateTable();
     </script>
 
