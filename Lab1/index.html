@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Population Table</title>
+    <style>
+        table {
+            width: 60%;
+            margin: 50px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        /* Column Headings Background Color (Red) */
+        th {
+            background-color: red;
+            color: white;
+        }
+        /* Country Column Background Color (Yellow) */
+        td:first-child {
+            background-color: yellow;
+        }
+        /* Year Column Background Color (Blue) */
+        td:nth-child(2) {
+            background-color: blue;
+            color: white;
+        }
+        /* Population Column Background Color (Green) */
+        td:last-child {
+            background-color: green;
+            color: white;
+        }
+        caption {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <table id="population-table">
+        <caption>Country Population (in Crores) for 1998-2000</caption>
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Year</th>
+                <th>Population (in Crores)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here dynamically by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Array of objects containing the population data for each country and year
+        const populationData = [
+            { country: 'India', year: 1998, population: 85 },
+            { country: 'India', year: 1999, population: 90 },
+            { country: 'India', year: 2000, population: 100 },
+            { country: 'USA', year: 1998, population: 30 },
+            { country: 'USA', year: 1999, population: 35 },
+            { country: 'USA', year: 2000, population: 40 },
+            { country: 'UK', year: 1998, population: 25 },
+            { country: 'UK', year: 1999, population: 30 },
+            { country: 'UK', year: 2000, population: 35 }
+        ];
+
+        // Function to populate the table with the data
+        function populateTable() {
+            const tableBody = document.querySelector('#population-table tbody');
+
+            // Loop through the data and create rows
+            populationData.forEach((data) => {
+                // Create a new row for each entry in the populationData array
+                const row = document.createElement('tr');
+
+                // Create cells for each column in the row
+                const countryCell = document.createElement('td');
+                countryCell.textContent = data.country;
+                row.appendChild(countryCell);
+
+                const yearCell = document.createElement('td');
+                yearCell.textContent = data.year;
+                row.appendChild(yearCell);
+
+                const populationCell = document.createElement('td');
+                populationCell.textContent = data.population;
+                row.appendChild(populationCell);
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Call the function to populate the table when the page loads
+        populateTable();
+    </script>
+
+</body>
+</html>

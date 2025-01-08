@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Population Table</title>
+    <style>
+        .head {
+            background-color: rgb(162, 55, 233);
+        }
+        .country {
+            background-color: rgb(187, 129, 204);
+        }
+        .year {
+            background-color: rgb(226, 170, 223);
+        }
+        .population {
+            background-color: rgb(235, 186, 216);
+        }
+        table {
+            width: 60%;
+            margin: 50px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        /* Column Headings Background Color */
+        th {
+            background-color: rgb(162, 55, 233);
+            color: white;
+        }
+        /* Country Column Background Color */
+        td:first-child {
+            background-color: rgb(187, 129, 204);
+        }
+        /* Year Column Background Color */
+        td:nth-child(2) {
+            background-color: rgb(226, 170, 223);
+        }
+        /* Population Column Background Color */
+        td:last-child {
+            background-color: rgb(235, 186, 216);
+        }
+        caption {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <table id="population-table">
+        <caption>Population Change 1998-2000</caption>
+        <thead>
+            <tr>
+                <th class="head">Country</th>
+                <th class="head" colspan="2">Population (in Crores)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here dynamically by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Array of objects containing the population data for each country and year
+        const populationData = [
+            { country: 'India', year: 1998, population: 85 },
+            { country: 'India', year: 1999, population: 90 },
+            { country: 'India', year: 2000, population: 100 },
+            { country: 'USA', year: 1998, population: 30 },
+            { country: 'USA', year: 1999, population: 35 },
+            { country: 'USA', year: 2000, population: 40 },
+            { country: 'UK', year: 1998, population: 25 },
+            { country: 'UK', year: 1999, population: 30 },
+            { country: 'UK', year: 2000, population: 35 }
+        ];
+
+        // Function to populate the table with the data
+        function populateTable() {
+            const tableBody = document.querySelector('#population-table tbody');
+
+            let currentCountry = '';
+
+            // Loop through the data and create rows
+            populationData.forEach((data, index) => {
+                const row = document.createElement('tr');
+
+                // Add the 'country' cell only for the first row of each country
+                if (data.country !== currentCountry) {
+                    currentCountry = data.country;  // Update the country tracker
+
+                    // Create country cell with rowspan="3" for the first row of each country
+                    const countryCell = document.createElement('td');
+                    countryCell.rowSpan = 3;  // Spans three rows for each country
+                    countryCell.className = "country";
+                    countryCell.textContent = data.country;
+                    row.appendChild(countryCell);  // Add the country cell to the row
+                } else {
+                    // For subsequent rows, just add an empty cell in the country column
+                    const emptyCountryCell = document.createElement('td');
+                    row.appendChild(emptyCountryCell);  // Empty cell for country
+                }
+
+                // Create and append the year and population cells
+                const yearCell = document.createElement('td');
+                yearCell.className = "year";
+                yearCell.textContent = data.year;
+                row.appendChild(yearCell);
+
+                const populationCell = document.createElement('td');
+                populationCell.className = "population";
+                populationCell.textContent = data.population;
+                row.appendChild(populationCell);
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Call the function to populate the table when the page loads
+        populateTable();
+    </script>
+
+</body>
+</html>
