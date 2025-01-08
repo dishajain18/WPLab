@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        body {
+            text-align: center; 
+        }
+
+        .videos-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; 
+            margin-top: 20px; 
+        }
+
+        figure {
+            margin: 0;
+            text-align: center; 
+        }
+
+        video {
+            width: 300px; 
+            height: auto; 
+        }
+    </style>
+</head>
+<body style="background-color: rgb(231, 223, 210);">
+    <h1 style="background-color: rgb(56, 34, 4); color:bisque;">Best Videos of All Time</h1>
+    
+    <div class="videos-container">
+        <figure>
+            <video src="./video1" controls>Seagulls flying over the ocean</video>
+            <figcaption>Ocean and Seagulls</figcaption>
+        </figure>
+
+        <figure>
+            <video src="./video2" controls>Woman crocheting tea coasters</video>
+            <figcaption>Crochet and Tea</figcaption>
+        </figure>
+
+        <figure>
+            <video src="./video3" controls>Racoon sticking out its tongue</video>
+            <figcaption>Silly Racoon</figcaption>
+        </figure>
+    </div>
+</body>
+</html>
