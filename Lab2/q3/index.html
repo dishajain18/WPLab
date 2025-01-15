@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Collection</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f1e1; /* Light beige background */
+            color: #4e3629; /* Dark brown text color */
+            font-family: 'Georgia', serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        h1 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: #6f4f37; /* Dark brown header */
+        }
+        .input-group-text {
+            font-weight: bold;
+            background-color: #6f4f37; /* Dark brown input group */
+            color: white;
+        }
+        .recipe-card {
+            margin-top: 20px;
+            background-color: #e9d8a6; /* Beige background for recipe cards */
+            border: 1px solid #6f4f37; /* Dark brown border */
+        }
+        .badge-custom {
+            background-color: #6f4f37;
+            color: white;
+        }
+        .recipe-card-body {
+            text-align: left;
+        }
+        .bottom-section {
+            margin-top: 40px;
+        }
+        .category-filter {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .category-filter button {
+            background-color: #6f4f37; /* Dark brown button */
+            color: white;
+        }
+        .recipe-collection {
+            max-width: 800px; /* Makes the recipe collection wider */
+        }
+        .btn-primary {
+            background-color: #6f4f37;
+            border-color: #6f4f37;
+        }
+        .btn-warning {
+            background-color: #d49f1c; /* Golden-yellow button for recipe of the day */
+            border-color: #d49f1c;
+        }
+        .card-header {
+            background-color: #6f4f37; /* Dark brown header for Recipe of the Day */
+            color: white;
+        }
+        .card-body {
+            background-color: #e9d8a6; /* Beige background for card body */
+        }
+        .card-text {
+            color: #4e3629; /* Dark brown text color */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Section - Add Recipe Form -->
+    <h1 class="text-center">MY RECIPE BOOK</h1>
+    <form id="recipeForm">
+        <div class="form-group">
+            <label for="recipeName">Recipe Name</label>
+            <input type="text" class="form-control" id="recipeName" placeholder="Enter recipe name" required>
+        </div>
+        <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <textarea class="form-control" id="ingredients" rows="3" placeholder="Enter ingredients" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="instructions">Instructions</label>
+            <textarea class="form-control" id="instructions" rows="3" placeholder="Enter cooking instructions" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="cookingTime">Cooking Time (in minutes)</label>
+            <input type="number" class="form-control" id="cookingTime" placeholder="Enter cooking time" required>
+        </div>
+        <div class="form-group">
+            <label for="recipeCategory">Category</label>
+            <select class="form-control" id="recipeCategory" required>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+                <option value="Dessert">Dessert</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Add Recipe</button>
+    </form>
+
+    <!-- Bottom Section - Divided into 3 Parts -->
+    <div class="bottom-section">
+        <div class="row">
+            <!-- First Part: Category Filter (Vertical) -->
+            <div class="col-md-3">
+                <h3>Filter by Category</h3>
+                <div class="category-filter">
+                    <button type="button" class="btn btn-secondary" onclick="filterRecipes('All')">All</button>
+                    <button type="button" class="btn btn-secondary" onclick="filterRecipes('Vegetarian')">Vegetarian</button>
+                    <button type="button" class="btn btn-secondary" onclick="filterRecipes('Non-Vegetarian')">Non-Vegetarian</button>
+                    <button type="button" class="btn btn-secondary" onclick="filterRecipes('Dessert')">Dessert</button>
+                </div>
+            </div>
+
+            <!-- Second Part: Recipe List (Wider) -->
+            <div class="col-md-7 recipe-collection">
+                <h3>Recipe Collection</h3>
+                <div id="recipeList">
+                    <!-- Recipe cards will be dynamically populated here -->
+                </div>
+            </div>
+
+            <!-- Third Part: Recipe of the Day -->
+            <div class="col-md-2">
+                <h3>Recipe of the Day</h3>
+                <div class="card" id="recipeOfTheDayCard">
+                    <div class="card-header">
+                        <h5 id="recipeOfTheDayName">Recipe Suggestion</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" id="recipeOfTheDayDescription">Here is a recipe suggestion for you based on the most popular or recent recipe.</p>
+                        <button class="btn btn-warning" id="recipeOfTheDayLink" onclick="getRandomRecipe()">Different Recipe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Dummy Recipe Data
+    let recipes = [
+        {
+            name: 'Tomato Soup',
+            ingredients: 'Tomatoes, Salt, Water, Olive Oil',
+            instructions: '1. Boil tomatoes in water. 2. Add salt and olive oil. 3. Blend and serve.',
+            cookingTime: 15,
+            category: 'Vegetarian'
+        },
+        {
+            name: 'Grilled Chicken',
+            ingredients: 'Chicken, Salt, Pepper, Olive Oil',
+            instructions: '1. Season the chicken. 2. Grill on both sides until done.',
+            cookingTime: 25,
+            category: 'Non-Vegetarian'
+        },
+        {
+            name: 'Chocolate Cake',
+            ingredients: 'Flour, Cocoa Powder, Sugar, Eggs',
+            instructions: '1. Mix ingredients and bake at 350°F for 30 minutes.',
+            cookingTime: 30,
+            category: 'Dessert'
+        },
+        {
+            name: 'Fruit Salad',
+            ingredients: 'Banana, Apple, Grapes, Lemon',
+            instructions: '1. Chop fruits and toss with lemon juice.',
+            cookingTime: 10,
+            category: 'Vegetarian'
+        },
+        {
+            name: 'Scrambled Eggs',
+            ingredients: 'Eggs, Butter, Salt, Pepper',
+            instructions: '1. Whisk eggs. 2. Cook with butter in a pan.',
+            cookingTime: 5,
+            category: 'Non-Vegetarian'
+        }
+    ];
+
+    // Function to display recipes
+    function displayRecipes(recipesToShow) {
+        let recipeCards = '';
+        recipesToShow.forEach(recipe => {
+            recipeCards += `
+                <div class="card recipe-card">
+                    <div class="card-header">
+                        <h5 class="card-title">${recipe.name}</h5>
+                    </div>
+                    <div class="card-body recipe-card-body">
+                        <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+                        <p><strong>Instructions:</strong> ${recipe.instructions}</p>
+                        <p><strong>Cooking Time:</strong> ${recipe.cookingTime} minutes</p>
+                        <p><strong>Category:</strong> <span class="badge badge-custom">${recipe.category}</span></p>
+                    </div>
+                </div>
+            `;
+        });
+        document.getElementById('recipeList').innerHTML = recipeCards;
+        // Update "Recipe of the Day" when recipes change
+        updateRecipeOfTheDay(recipesToShow);
+    }
+
+    // Function to filter recipes based on category
+    function filterRecipes(category) {
+        let filteredRecipes = [];
+        
+        if (category === 'All') {
+            filteredRecipes = recipes;
+        } else {
+            filteredRecipes = recipes.filter(recipe => recipe.category === category);
+        }
+        
+        displayRecipes(filteredRecipes);
+    }
+
+    // Function to update the "Recipe of the Day"
+    function updateRecipeOfTheDay(recipesToShow) {
+        const randomRecipe = recipesToShow[Math.floor(Math.random() * recipesToShow.length)];
+        const recipeOfTheDayCard = document.getElementById('recipeOfTheDayCard');
+        document.getElementById('recipeOfTheDayName').innerText = randomRecipe.name;
+        document.getElementById('recipeOfTheDayDescription').innerText = `Ingredients: ${randomRecipe.ingredients}. Instructions: ${randomRecipe.instructions}`;
+        document.getElementById('recipeOfTheDayLink').href = "#";
+    }
+
+    // Function to get a random recipe when the "Different Recipe" button is clicked
+    function getRandomRecipe() {
+        // Get the current filtered recipes
+        const recipesToShow = recipes;
+        // Select a random recipe from the list
+        const randomRecipe = recipesToShow[Math.floor(Math.random() * recipesToShow.length)];
+        
+        document.getElementById('recipeOfTheDayName').innerText = randomRecipe.name;
+        document.getElementById('recipeOfTheDayDescription').innerText = `Ingredients: ${randomRecipe.ingredients}. Instructions: ${randomRecipe.instructions}`;
+    }
+
+    // Handle form submission
+    $('#recipeForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const recipe = {
+            name: $('#recipeName').val(),
+            ingredients: $('#ingredients').val(),
+            instructions: $('#instructions').val(),
+            cookingTime: $('#cookingTime').val(),
+            category: $('#recipeCategory').val()
+        };
+
+        recipes.push(recipe);
+
+        // Reset the form and display the updated list of recipes
+        $('#recipeForm')[0].reset();
+        displayRecipes(recipes);
+    });
+
+    // Initialize the page
+    $(document).ready(function() {
+        displayRecipes(recipes);  // Display all recipes initially
+    });
+</script>
+
+</body>
+</html>

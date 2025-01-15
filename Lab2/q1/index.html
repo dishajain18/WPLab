@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bio-Data Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4ece0; 
+            color: #5d4037;
+        }
+
+        h2 {
+            color: #3e2723; 
+            font-family: 'Georgia', serif;
+        }
+
+        .form-group label {
+            color: #3e2723; 
+            font-weight: bold;
+        }
+
+        .form-check-label {
+            font-size: 16px;
+            color: #3e2723; 
+        }
+
+        .btn-primary {
+            background-color: #6d4c41; 
+            border-color: #5d4037; 
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #5d4037; 
+            border-color: #3e2723; 
+        }
+
+        .container {
+            background-color: #fff; 
+            border-radius: 8px; 
+            padding: 30px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            margin-top: 50px;
+        }
+
+        .subjects-section {
+            margin-top: 15px; 
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .form-group-submit {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center mb-4">Student Bio-Data Form</h2>
+    
+    <form>
+        
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter Full Name">
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" class="form-control" id="dob">
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" placeholder="Enter Age" required>
+        </div>
+
+        <div class="form-group">
+            <label>Gender</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male">
+                <label class="form-check-label" for="genderMale">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female">
+                <label class="form-check-label" for="genderFemale">Female</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="registrationNumber">Registration Number</label>
+            <input type="text" class="form-control" id="registrationNumber" placeholder="Enter 9-digit Registration Number" maxlength="9" pattern="\d{9}" required>
+            <small class="form-text text-muted">Please enter exactly 9 digits.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email ID</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter Email ID" required>
+        </div>
+
+        <div class="form-group">
+            <label for="contactNumber">Contact Number</label>
+            <input type="tel" class="form-control" id="contactNumber" placeholder="Enter Contact Number" maxlength="10" pattern="\d{10}" required>
+            <small class="form-text text-muted">Please enter a 10-digit contact number.</small>
+        </div>
+
+        <div class="form-group">
+            <label>Branch</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchCSE" value="CSE">
+                <label class="form-check-label" for="branchCSE">
+                    CSE
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchCSEAI" value="CSE AI & ML">
+                <label class="form-check-label" for="branchCSEAI">
+                    CSE AI & ML
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchDSE" value="DSE">
+                <label class="form-check-label" for="branchDSE">
+                    DSE
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchCCE" value="CCE">
+                <label class="form-check-label" for="branchCCE">
+                    CCE
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchIT" value="IT">
+                <label class="form-check-label" for="branchIT">
+                    IT
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchBIOMED" value="BIOMED">
+                <label class="form-check-label" for="branchBIOMED">
+                    BIOMED
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchBIOTECH" value="BIOTECH">
+                <label class="form-check-label" for="branchBIOTECH">
+                    BIOTECH
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchCIVIL" value="CIVIL">
+                <label class="form-check-label" for="branchCIVIL">
+                    CIVIL
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="branch" id="branchMECHANICAL" value="MECHANICAL">
+                <label class="form-check-label" for="branchMECHANICAL">
+                    MECHANICAL
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="previousEducation">Previous Education</label>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Education Level</th>
+                        <th>Institution Name</th>
+                        <th>Percentage</th>
+                        <th>Year of Passing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>School</td>
+                        <td><input type="text" class="form-control" placeholder="Enter School Name"></td>
+                        <td><input type="number" class="form-control" placeholder="Enter Percentage" step="0.1" min="0" max="100"></td>
+                        <td><input type="number" class="form-control" placeholder="Enter Year" min="1900" max="2099"></td>
+                    </tr>
+                    <tr>
+                        <td>Intermediate</td>
+                        <td><input type="text" class="form-control" placeholder="Enter Intermediate Institution Name"></td>
+                        <td><input type="number" class="form-control" placeholder="Enter Percentage" step="0.1" min="0" max="100"></td>
+                        <td><input type="number" class="form-control" placeholder="Enter Year" min="1900" max="2099"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group-submit">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

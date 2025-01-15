@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee CRUD Operations</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4e1d2;  
+            color: #5b4e3d;  
+        }
+
+        .container {
+            margin-top: 30px;
+            background-color: #fff4e1; 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #5b4e3d;  
+        }
+
+        .table th, .table td {
+            text-align: center;
+            padding: 12px;
+        }
+
+        .table-bordered {
+            border-color: #8f7b5a;  
+        }
+
+        .table th {
+            background-color: #d8c1a0;
+            color: #5b4e3d;
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f4e1d2;  
+        }
+
+        .employee-table-wrapper {
+            max-height: 120px;
+            overflow-y: auto;
+            border: 1px solid #8f7b5a;
+            margin-top: 20px;
+        }
+
+        .details-table {
+            margin-top: 20px;
+        }
+
+        #employeeDetailsSection {
+            display: none;
+        }
+
+        button {
+            background-color: #8f7b5a; 
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #6b5b3c; 
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(139, 123, 90, 0.5); 
+        }
+
+        h2, h3 {
+            color: #5b4e3d; 
+        }
+
+        .form-control {
+            background-color: #f4e1d2;
+            border-color: #8f7b5a;
+            color: #5b4e3d;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Employee CRUD Operations</h2>
+
+    <form id="employeeForm">
+        <div class="form-group">
+            <label for="empName">Employee Name</label>
+            <input type="text" class="form-control" id="empName" placeholder="Enter Employee Name" required>
+        </div>
+        <div class="form-group">
+            <label for="empPosition">Position</label>
+            <input type="text" class="form-control" id="empPosition" placeholder="Enter Employee Position" required>
+        </div>
+        <div class="form-group">
+            <label for="empSalary">Salary</label>
+            <input type="number" class="form-control" id="empSalary" placeholder="Enter Salary" required>
+        </div>
+        <div class="form-group">
+            <label for="empDepartment">Department</label>
+            <input type="text" class="form-control" id="empDepartment" placeholder="Enter Department" required>
+        </div>
+        <input type="hidden" id="empId">
+        <button type="submit" id="submitBtn">Add Employee</button>
+    </form>
+
+    <h3 class="mt-5">Employee List</h3>
+    <div class="employee-table-wrapper">
+        <table class="table table-bordered" id="employeeTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="employeeDetailsSection">
+        <h3 class="mt-5">Employee Details</h3>
+        <table class="table table-bordered details-table" id="employeeDetailsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be dynamically populated here when Show Details is clicked -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Simulating a database with an array
+    let employees = [
+        { id: 1, name: 'Disha Jain', position: 'Software Engineer', salary: 50000, department: 'IT' },
+        { id: 2, name: 'Snehansh Jerath', position: 'Manager', salary: 70000, department: 'HR' },
+        { id: 3, name: 'Adel Sarah Dsouza', position: 'Designer', salary: 45000, department: 'Design' },
+        { id: 4, name: 'Komal Mathur', position: 'Developer', salary: 55000, department: 'IT' },
+        { id: 5, name: 'Anshu Kantipudi', position: 'Manager', salary: 65000, department: 'HR' }
+    ];
+
+    // Function to fetch and display employees in the table
+    function fetchEmployees() {
+        let rows = '';
+        employees.forEach(emp => {
+            rows += `
+                <tr>
+                    <td>${emp.id}</td>
+                    <td>${emp.name}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editEmployee(${emp.id})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteEmployee(${emp.id})">Delete</button>
+                        <button class="btn btn-info btn-sm" onclick="showEmployeeDetails(${emp.id})">Show Details</button>
+                    </td>
+                </tr>
+            `;
+        });
+        $('#employeeTable tbody').html(rows);
+    }
+
+    // Add or Update Employee
+    $('#employeeForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const employee = {
+            name: $('#empName').val(),
+            position: $('#empPosition').val(),
+            salary: $('#empSalary').val(),
+            department: $('#empDepartment').val()
+        };
+
+        const empId = $('#empId').val();
+
+        if (empId) {
+            // Update employee
+            const index = employees.findIndex(emp => emp.id == empId);
+            if (index !== -1) {
+                employees[index] = { ...employees[index], ...employee };  // Update the employee data
+                alert('Employee updated successfully!');
+            }
+            $('#submitBtn').text('Add Employee');
+        } else {
+            // Create new employee
+            const newEmployee = {
+                id: employees.length + 1,
+                ...employee
+            };
+            employees.push(newEmployee);
+            alert('Employee added successfully!');
+        }
+
+        // Reset form and refresh employee list
+        $('#employeeForm')[0].reset();
+        $('#empId').val('');
+        fetchEmployees();
+    });
+
+    // Edit Employee
+    function editEmployee(id) {
+        const emp = employees.find(emp => emp.id === id);
+        if (emp) {
+            $('#empName').val(emp.name);
+            $('#empPosition').val(emp.position);
+            $('#empSalary').val(emp.salary);
+            $('#empDepartment').val(emp.department);
+            $('#empId').val(emp.id);
+            $('#submitBtn').text('Update Employee');
+        }
+    }
+
+    // Delete Employee
+    function deleteEmployee(id) {
+        const index = employees.findIndex(emp => emp.id === id);
+        if (index !== -1) {
+            if (confirm('Are you sure you want to delete this employee?')) {
+                employees.splice(index, 1);  // Remove the employee from the array
+                alert('Employee deleted successfully!');
+                fetchEmployees();
+            }
+        }
+    }
+
+    // Show Employee Details in a new row table
+    function showEmployeeDetails(id) {
+        const emp = employees.find(emp => emp.id === id);
+        if (emp) {
+            // Populate the Employee Details Table with the selected employee data
+            const detailRow = `
+                <tr>
+                    <td>${emp.id}</td>
+                    <td>${emp.name}</td>
+                    <td>${emp.position}</td>
+                    <td>${emp.salary}</td>
+                    <td>${emp.department}</td>
+                </tr>
+            `;
+            $('#employeeDetailsTable tbody').html(detailRow);
+            $('#employeeDetailsSection').show();  
+        }
+    }
+
+    // Initialize the page
+    $(document).ready(function() {
+        fetchEmployees();
+    });
+</script>
+
+</body>
+</html>
