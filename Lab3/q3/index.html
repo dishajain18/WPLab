@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Web Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        .left-side, .right-side {
+            width: 50%;
+            padding: 20px;
+        }
+        .left-side {
+            background-color: #f4f4f4;
+        }
+        .right-side {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group select, .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .input-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            height: 100px;
+        }
+        .update-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .update-btn:hover {
+            background-color: #45a049;
+        }
+        .greeting {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid black;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-group input {
+            margin-left: 10px;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column; /* Vertically align the radio buttons */
+        }
+        .radio-group input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="left-side">
+        <h2>Customize Your Page</h2>
+
+        <div class="input-group">
+            <label for="background-color">Choose Background Color:</label>
+            <select id="background-color">
+                <option value="white">White</option>
+                <option value="lightblue">Light Blue</option>
+                <option value="lightgreen">Light Green</option>
+                <option value="lightyellow">Light Yellow</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="font-family">Choose Font:</label>
+            <select id="font-family">
+                <option value="Arial">Arial</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="font-size">Specify Font Size (px):</label>
+            <input type="number" id="font-size" placeholder="Enter font size">
+        </div>
+
+        <div class="input-group">
+            <label>Choose Border Style:</label>
+            <div class="radio-group">
+                <input type="radio" id="none" name="border" value="none">
+                <label for="none">None</label>
+                <input type="radio" id="solid" name="border" value="solid">
+                <label for="solid">Solid</label>
+                <input type="radio" id="double" name="border" value="double">
+                <label for="double">Double</label>
+            </div>
+        </div>
+
+        <div class="input-group checkbox-group">
+            <label for="default-picture">Use Default Picture:</label>
+            <input type="checkbox" id="default-picture">
+        </div>
+
+        <div class="input-group">
+            <label for="greeting-text">Enter Greeting Text:</label>
+            <textarea id="greeting-text" placeholder="Enter your greeting text here"></textarea>
+        </div>
+
+        <button class="update-btn" onclick="updatePage()">Update</button>
+    </div>
+
+    <div class="right-side" id="right-side">
+        <div class="greeting" id="greeting-display"></div>
+        <div class="image-container" id="image-container">
+            <!-- Image will be displayed here if checkbox is checked -->
+        </div>
+    </div>
+
+    <script>
+        function updatePage() {
+            // Get values from left-side form
+            const backgroundColor = document.getElementById('background-color').value;
+            const fontFamily = document.getElementById('font-family').value;
+            const fontSize = document.getElementById('font-size').value;
+            const borderStyle = document.querySelector('input[name="border"]:checked').value;
+            const useDefaultPicture = document.getElementById('default-picture').checked;
+            const greetingText = document.getElementById('greeting-text').value;
+
+            // Apply styles to right-side
+            const rightSide = document.getElementById('right-side');
+            rightSide.style.backgroundColor = backgroundColor;
+            rightSide.style.fontFamily = fontFamily;
+            rightSide.style.fontSize = fontSize ? fontSize + 'px' : '16px';
+            rightSide.style.border = borderStyle === 'none' ? 'none' : `${borderStyle} 5px black`;
+
+            // Update greeting text
+            const greetingDisplay = document.getElementById('greeting-display');
+            greetingDisplay.textContent = greetingText || "Hello, Welcome to your personalized page!";
+
+            // Handle the image
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = ''; // Clear previous image
+
+            if (useDefaultPicture) {
+                const img = document.createElement('img');
+                img.src = 'https://picsum.photos/id/237/500/300'; // Default image URL
+                imageContainer.appendChild(img);
+            }
+        }
+    </script>
+
+</body>
+</html>
