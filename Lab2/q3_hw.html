@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Text on Image</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #11cbac, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .image-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .sliding-text {
+            position: absolute;
+            bottom: 10%;
+            left: -100%;
+            width: 80%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://picsum.photos/600/400" alt="Random Image">
+        <div class="sliding-text">Disha Says Hello <3</div>
+    </div>
+
+    <script>
+        function animateText() {
+            $(".sliding-text").css("left", "-100%").animate({ left: "10%" }, 2000)
+                             .delay(2000)
+                             .animate({ left: "110%" }, 2000, function() {
+                                 setTimeout(animateText, 1000);
+                             });
+        }
+
+        $(document).ready(function() {
+            animateText();
+        });
+    </script>
+</body>
+</html>
