@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produce Bill</title>
+    <script>
+        function calculateBill() {
+            const product = document.getElementById("product").value;
+            const quantity = parseInt(document.getElementById("quantity").value) || 0;
+            const mobileCheckbox = document.getElementById("mobile").checked;
+            const laptopCheckbox = document.getElementById("laptop").checked;
+
+            if (!quantity) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+
+            if(!mobileCheckbox && !laptopCheckbox)
+            {
+                alert("Please pick a device.");
+                return;
+            }
+
+            let Phoneprice = 0;
+            let Laptopprice = 0;
+            switch (product) {
+                case "HP":
+                    Phoneprice = 30;
+                    Laptopprice = 80;
+                    break;
+                case "Nokia":
+                    Phoneprice = 10;
+                    Laptopprice = 50;
+                    break;
+                case "Samsung":
+                    Phoneprice = 50;
+                    Laptopprice = 70;
+                    break;
+                case "Motorola":
+                    Phoneprice = 20;
+                    Laptopprice = 50;
+                    break;
+                case "Apple":
+                    Phoneprice = 60;
+                    Laptopprice = 100;
+                    break;
+            }
+            const cost = (mobileCheckbox?Phoneprice:Laptopprice)
+            const totalAmount = quantity * cost ;
+
+            alert(`Total Amount: $${totalAmount.toFixed(2)}k`);
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+            align-items: center;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #6a11cb;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2575fc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Billing Page</h2>
+        <label for="product">Select Company:</label>
+        <select id="product">
+            <option value="HP">HP</option>
+            <option value="Nokia">Nokia</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Motorola">Motorola</option>
+            <option value="Apple">Apple</option>
+        </select>
+
+        <label>Select Device:</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="mobile"> Mobile</label>
+            <label><input type="checkbox" id="laptop"> Laptop</label>
+        </div>
+
+        <label for="quantity">Enter Quantity:</label>
+        <input type="text" id="quantity" placeholder="Enter quantity" style= "width:90%">
+
+        <button onclick="calculateBill()">Produce Bill</button>
+    </div>
+</body>
+</html>
