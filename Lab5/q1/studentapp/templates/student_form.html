@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Student Details</h1>
+
+        <!-- Form for inputting student details -->
+        <form id="studentForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+
+            <label for="address">Address:</label>
+            <textarea id="address" required></textarea>
+
+            <label for="contact">Contact Number:</label>
+            <input type="text" id="contact" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="english_marks">Marks in English:</label>
+            <input type="number" id="english_marks" min="0" max="100" required>
+
+            <label for="physics_marks">Marks in Physics:</label>
+            <input type="number" id="physics_marks" min="0" max="100" required>
+
+            <label for="chemistry_marks">Marks in Chemistry:</label>
+            <input type="number" id="chemistry_marks" min="0" max="100" required>
+
+            <button type="button" onclick="calculateResult()">Submit</button>
+        </form>
+
+        <!-- Display the results after form submission -->
+        <div class="result" id="resultSection">
+            <h3>Student Details</h3>
+            <p><strong>Name:</strong> <span id="resultName"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="resultDOB"></span></p>
+            <p><strong>Address:</strong> <span id="resultAddress"></span></p>
+            <p><strong>Contact Number:</strong> <span id="resultContact"></span></p>
+            <p><strong>Email:</strong> <span id="resultEmail"></span></p>
+            <h4>Marks</h4>
+            <ul>
+                <li><strong>English:</strong> <span id="resultEnglish"></span></li>
+                <li><strong>Physics:</strong> <span id="resultPhysics"></span></li>
+                <li><strong>Chemistry:</strong> <span id="resultChemistry"></span></li>
+            </ul>
+            <p><strong>Total Marks:</strong> <span id="resultTotalMarks"></span> / 300</p>
+            <p><strong>Percentage:</strong> <span id="resultPercentage"></span>%</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateResult() {
+            // Get the form values
+            const name = document.getElementById('name').value;
+            const dob = document.getElementById('dob').value;
+            const address = document.getElementById('address').value;
+            const contact = document.getElementById('contact').value;
+            const email = document.getElementById('email').value;
+            const englishMarks = parseInt(document.getElementById('english_marks').value);
+            const physicsMarks = parseInt(document.getElementById('physics_marks').value);
+            const chemistryMarks = parseInt(document.getElementById('chemistry_marks').value);
+
+            // Calculate total marks and percentage
+            const totalMarks = englishMarks + physicsMarks + chemistryMarks;
+            const percentage = (totalMarks / 300) * 100;
+
+            // Display the results
+            document.getElementById('resultName').textContent = name;
+            document.getElementById('resultDOB').textContent = dob;
+            document.getElementById('resultAddress').textContent = address;
+            document.getElementById('resultContact').textContent = contact;
+            document.getElementById('resultEmail').textContent = email;
+            document.getElementById('resultEnglish').textContent = englishMarks;
+            document.getElementById('resultPhysics').textContent = physicsMarks;
+            document.getElementById('resultChemistry').textContent = chemistryMarks;
+            document.getElementById('resultTotalMarks').textContent = totalMarks;
+            document.getElementById('resultPercentage').textContent = percentage.toFixed(2);
+
+            // Show the result section
+            document.getElementById('resultSection').style.display = 'block';
+
+            // Clear the form after submission
+            document.getElementById('studentForm').reset();
+        }
+    </script>
+</body>
+</html>
