@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.container {
+    width: 60%;
+    max-width: 800px;
+    text-align: center;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input[type="file"],
+input[type="color"],
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.cover {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    overflow: hidden;
+    border: 2px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+}
+
+h2, h3 {
+    position: absolute;
+    margin: 0;
+    color: #000;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+h2 {
+    font-size: 50px;
+    font-weight: bold;
+    z-index: 10;
+}
+
+h3 {
+    font-size: 30px;
+    font-weight: lighter;
+    z-index: 10;
+}

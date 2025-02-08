@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazine Cover Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Magazine Cover Generator</h1>
+        
+        <form id="coverForm">
+
+            <label for="bgColor">Background Color:</label>
+            <input type="color" id="bgColor" value="#ffffff"><br><br>
+
+            <label for="titleText">Title Text:</label>
+            <input type="text" id="titleText" placeholder="Enter title text"><br><br>
+
+            <label for="subtitleText">Subtitle Text:</label>
+            <input type="text" id="subtitleText" placeholder="Enter subtitle text"><br><br>
+
+            <label for="titleFontSize">Title Font Size (px):</label>
+            <input type="number" id="titleFontSize" value="50" min="10" max="150"><br><br>
+
+            <label for="subtitleFontSize">Subtitle Font Size (px):</label>
+            <input type="number" id="subtitleFontSize" value="30" min="10" max="100"><br><br>
+
+            <label for="titleFontColor">Title Font Color:</label>
+            <input type="color" id="titleFontColor" value="#000000"><br><br>
+
+            <label for="subtitleFontColor">Subtitle Font Color:</label>
+            <input type="color" id="subtitleFontColor" value="#000000"><br><br>
+
+            <label for="image">Select Image for Cover:</label>
+            <input type="file" id="image" accept="image/*"><br><br>
+        </form>
+
+        <div class="cover" id="coverPreview">
+            <div class="cover-image" id="coverImage"></div>
+            <h2 id="coverTitle">Your Title Here</h2>
+            <h3 id="coverSubtitle">Your Subtitle Here</h3>
+        </div>
+    </div>
+
+    <script>
+        // Handle form input events
+        document.getElementById('coverForm').addEventListener('input', function() {
+            updateCover();
+        });
+
+        // Update the magazine cover based on user input
+        function updateCover() {
+            // Get the form values
+            const titleText = document.getElementById('titleText').value || 'Your Title Here';
+            const subtitleText = document.getElementById('subtitleText').value || 'Your Subtitle Here';
+            const titleFontSize = document.getElementById('titleFontSize').value || 50;
+            const subtitleFontSize = document.getElementById('subtitleFontSize').value || 30;
+            const titleFontColor = document.getElementById('titleFontColor').value || '#000000';
+            const subtitleFontColor = document.getElementById('subtitleFontColor').value || '#000000';
+            const bgColor = document.getElementById('bgColor').value || '#ffffff';
+
+            // Update the background color of the cover
+            document.getElementById('coverPreview').style.backgroundColor = bgColor;
+
+            // Update the title text and styling
+            const coverTitle = document.getElementById('coverTitle');
+            coverTitle.innerText = titleText;
+            coverTitle.style.fontSize = titleFontSize + 'px';
+            coverTitle.style.color = titleFontColor;
+
+            // Update the subtitle text and styling
+            const coverSubtitle = document.getElementById('coverSubtitle');
+            coverSubtitle.innerText = subtitleText;
+            coverSubtitle.style.fontSize = subtitleFontSize + 'px';
+            coverSubtitle.style.color = subtitleFontColor;
+
+            // Handle the image change
+            const coverImage = document.getElementById('coverImage');
+            const imageFile = document.getElementById('image').files[0];
+            
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    coverImage.style.backgroundImage = `url(${e.target.result})`;
+                    coverImage.style.opacity = 0.5; // Add some opacity to the background image
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                coverImage.style.backgroundImage = ''; // Reset the background if no image is uploaded
+                coverImage.style.opacity = 0; // Hide the background image if not set
+            }
+        }
+    </script>
+</body>
+</html>
