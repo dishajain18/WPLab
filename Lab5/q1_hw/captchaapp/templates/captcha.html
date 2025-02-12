@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple CAPTCHA</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .captcha-box { font-size: 24px; font-weight: bold; background: #f0f0f0; display: inline-block; padding: 10px; margin: 10px; }
+        input, button { padding: 10px; font-size: 16px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Enter the CAPTCHA</h2>
+    
+    <div class="captcha-box">{{ captcha_text }}</div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="captcha_input" required {% if disable_input %}disabled{% endif %}>
+        <button type="submit" {% if disable_input %}disabled{% endif %}>Submit</button>
+    </form>
+
+    <p>{{ message }}</p>
+
+</body>
+</html>
