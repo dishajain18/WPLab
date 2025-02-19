@@ -1,0 +1,14 @@
+<html>
+    <body>
+        <h2>Your Information</h2>
+        <p>Name: <strong>{{ name }}</strong></p>
+        <p>Roll Number: <strong>{{ roll }}</strong></p>
+        <p>Subject: <strong>{{ subject }}</strong></p>
+
+        <br><br>
+
+        <form action="{% url 'first_page' %}" method="GET">
+            <button type="submit">Go Back to First Page</button>
+        </form>
+    </body>
+</html>
