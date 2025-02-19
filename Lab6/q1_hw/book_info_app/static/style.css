@@ -1,0 +1,79 @@
+/* General Page Styling */
+body {
+    font-family: Georgia, "Times New Roman", Garamond, serif;
+    background-color: #f5ebdc;  /* Antique paper color */
+    color: #4a3228;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Container Styling */
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fdf8f1;  /* Slightly aged paper effect */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid #a07c5d;
+}
+
+/* Header */
+h1 {
+    color: #5a4632;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #a07c5d;
+}
+
+/* Book Cover */
+img {
+    width: 250px;
+    border-radius: 5px;
+    border: 3px solid #a07c5d;
+    margin: 20px 0;
+}
+
+/* Navigation Links */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    display: inline;
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 18px;
+    background: #a07c5d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+a:hover {
+    background: #5a4632;
+}
+
+/* Back to Home Button */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #8a6d53;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.back-link:hover {
+    background: #5a4632;
+}
