@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote for the Book</title>
+</head>
+<body>
+    <p>How is the book "ASP.NET with C#" by Vipul Prakashan?<p>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <label>
+            <input type="radio" name="vote" value="Good"> Good
+            {% if percentages.Good %}
+                ({{ percentages.Good|floatformat:2 }}%)
+            {% endif %}
+        </label><br>
+        
+        <label>
+            <input type="radio" name="vote" value="Satisfactory"> Satisfactory
+            {% if percentages.Satisfactory %}
+                ({{ percentages.Satisfactory|floatformat:2 }}%)
+            {% endif %}
+        </label><br>
+        
+        <label>
+            <input type="radio" name="vote" value="Bad"> Bad
+            {% if percentages.Bad %}
+                ({{ percentages.Bad|floatformat:2 }}%)
+            {% endif %}
+        </label><br>
+        
+        <button type="submit">Vote</button>
+    </form>
+</body>
+</html>
