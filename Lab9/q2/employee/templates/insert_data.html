@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert Data</title>
+</head>
+<body>
+    <h2>Insert Employee Data</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <h3>Works Information</h3>
+        {{ works_form.as_p }}  <!-- Render works form fields -->
+
+        <input type="submit" value="Insert Data">
+    </form>
+    <p>Please add the 'Lives' data for this employee via the admin panel.</p>
+</body>
+</html>

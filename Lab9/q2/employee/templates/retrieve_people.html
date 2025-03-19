@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retrieve People</title>
+</head>
+<body>
+    <h2>Retrieve People by Company</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="company_name">Company Name:</label>
+        <input type="text" name="company_name" required><br><br>
+        <input type="submit" value="Retrieve">
+    </form>
+</body>
+</html>
